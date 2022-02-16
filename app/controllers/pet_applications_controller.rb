@@ -10,12 +10,12 @@ class PetApplicationsController < ApplicationController
   def approve
     pet_app = PetApplication.find(params[:id])
     pet_app.update(status: "Approved")
-    redirect_to "/admin/applications/#{pet_app.application_id}"
+    redirect_to "/admin/applications/approve/#{pet_app.application_id}"
   end
 
   def reject
     pet_app = PetApplication.find(params[:id])
     pet_app.update(status: "Rejected")
-    redirect_to "/admin/applications/#{pet_app.application_id}"
+    redirect_to "/admin/applications/reject/#{pet_app.application_id}"
   end
 end

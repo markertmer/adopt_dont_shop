@@ -23,18 +23,22 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  def update
+  def submit
     app = Application.find(params[:id])
 
-    app.update(status: "Pending")
     app.update(app_params)
+    app.update(status: "Pending")
     redirect_to "/applications/#{app.id}"
   end
 
-  def approve
+  def complete
     app = Application.find(params[:id])
-    app.update(status: "Approved")
-    redirect_to "/applications/#{app.id}"
+    app.update(status: app.status_check)
+    if app.status == "Approved"
+      redirect_to "/pets/adopt/#{app.id}"
+    else
+      redirect_to "/admin/applications/#{app.id}"
+    end
   end
 
   private
