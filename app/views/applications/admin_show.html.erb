@@ -5,7 +5,11 @@
   <% pet_app = PetApplication.find_by_rels(pet.id, @application.id) %>
   <% status = pet_app.status %>
   <div id="decide-<%= pet.id %>">
-    <% if status == "Approved" %>
+    <% if pet.adoptable == false && @application.status != "Approved" %>
+      <p><%= "#{pet.name}" %></p>
+      <h4>This pet has been approved for adoption on another application.</h4>
+      <%= button_to "Reject", "/pet_applications/reject/#{pet_app.id}", method: :patch %>
+    <% elsif status == "Approved" %>
       <p><%= "#{pet.name} - APPROVED" %></p>
     <% elsif status == "Rejected" %>
       <p><%= "#{pet.name} - REJECTED" %></p>

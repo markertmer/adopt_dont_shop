@@ -342,13 +342,30 @@ RSpec.describe Application, type: :feature do
 
           visit "/pets/#{@pet_3.id}"
           expect(page).to have_content("Adoptable: true")
-          
+
           visit "/pets"
 
           expect(page).to have_content(@pet_1.name)
           expect(page).to have_content(@pet_2.name)
           expect(page).to have_content(@pet_3.name)
           expect(page).to have_content(@pet_4.name)
+        end
+
+        it 'pets can only have one approved application on them' do
+          PetApplication.create!(pet_id: @pet_3.id, application_id: @app_1.id)
+
+          visit "/admin/applications/#{@app_2.id}"
+          within("#decide-#{@pet_3.id}") do
+            click_button("Approve")
+          end
+
+          visit "/admin/applications/#{@app_1.id}"
+
+          within("#decide-#{@pet_3.id}") do
+            expect(page).to have_content("This pet has been approved for adoption on another application.")
+            expect(page).to_not have_button("Approve")
+            expect(page).to have_button("Reject")
+          end
         end
       end
     end
