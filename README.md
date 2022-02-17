@@ -1,3 +1,20 @@
+# Mark's Notes
+
+## Database Design
+<img width="933" alt="image" src="https://user-images.githubusercontent.com/91342410/154379463-ab2820b8-0c67-41ce-a746-6995ed37913d.png">
+
+* I made it through the `Completed Applications` user stories. The rest of it all looks doable but time is a factor.
+* I was having an issue where Heroku was changing a button html verb from `patch` to `post` (on the "Approve" and "Reject" buttons in 'app/views/applications/admin_show.html.erb'. It ran fine on localhost:3000 but was not performing the correct action on the deployed app. I added two additional `post` routes that are otherwise identical to the `patch` routes for these buttons, and it now works.
+* Two partials were employed:
+   * in 'app/views/applications', '\_details.html.erb' serves up basic application attributes to the user and admin show pages.
+   * in 'app/views/pets', '\_form.html.erb' collects user data on the `new` and `edit` pages.
+* The app has 174 tests none failing, with 100% LOC covered.
+* I tried to be more conscious of how my tests are organized. I alternated between using `before :each` blocks and putting code into each individual test, just to experience both approaches.
+* Several edge cases I identified that satisfy the User Story #9, but could still be problematic:
+   * When a pet is on more than one application, and gets approved on one application, the admin must click `reject` for that pet on the other application. However, if this application is approved for another pet, the entire application will be rejected.
+   * If there are multiple admins simultaneously approving or rejecting pets for applications, it is possible that a pet could be approved on more than one approved applications. For example, if two admins approve the pet on two different applications, and those applications have multiple pets, so that the application itself does not get marked "Approved" (when ALL pets on the app are approved/rejected) before the pet is also approved for the other application.
+
+
 # Adopt, don't Shop
 
 ### Existing database design
