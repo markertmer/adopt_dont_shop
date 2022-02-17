@@ -3,6 +3,7 @@
 ## Database Design
 <img width="933" alt="image" src="https://user-images.githubusercontent.com/91342410/154379463-ab2820b8-0c67-41ce-a746-6995ed37913d.png">
 
+* Deployed on https://agile-journey-71634.herokuapp.com/
 * I made it through the `Completed Applications` user stories. The rest of it all looks doable but time is a factor.
 * I was having an issue where Heroku was changing a button html verb from `patch` to `post` (on the "Approve" and "Reject" buttons in 'app/views/applications/admin_show.html.erb'. It ran fine on localhost:3000 but was not performing the correct action on the deployed app. I added two additional `post` routes that are otherwise identical to the `patch` routes for these buttons, and it now works.
 * Two partials were employed:
